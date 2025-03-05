@@ -53,9 +53,9 @@ public class MahasiswaResourceImpl extends MahasiswaResourceDecorator {
 		
 		try {
 			idStr = vmjExchange.getGETParam("id");
-      if(idStr == null) {
-        throw new IllegalArgumentException("Invalid UUID");
-      }
+      // if(idStr == null) {
+      //   throw new IllegalArgumentException("Invalid UUID");
+      // }
       UUID id = UUID.fromString(idStr);
       Mahasiswa mahasiswa = mahasiswaService.getMahasiswa(id);
       return mahasiswa.toHashMap();
@@ -113,6 +113,32 @@ public class MahasiswaResourceImpl extends MahasiswaResourceDecorator {
 
     return mahasiswaService.transformMahasiswaListToHashMap(result);
 	}
+
+  @Restricted(permissionName = "ReadMahasiswa")
+  @Route(url = "call/mahasiswa/listnotgraduated")
+  public List<HashMap<String, Object>> getNotGraduated(VMJExchange vmjExchange) {
+    List<Mahasiswa> mahasiswaList = mahasiswaService.getNotGraduated();
+    return mahasiswaService.transformMahasiswaListToHashMap(mahasiswaList);
+  }
+  
+  @Restricted(permissionName = "VerifyMahasiswa")
+  @Route(url = "call/mahasiswa/verify")
+  public HashMap<String, Object> verify(VMJExchange vmjExchange) {
+   Mahasiswa verified = mahasiswaService.verify((HashMap<String, Object>) vmjExchange.getPayload());
+  
+   if (verified != null) {
+     return verified.toHashMap();
+    } else {
+      HashMap<String, Object> notFoundMap = new HashMap<>();
+      notFoundMap.put("message", "Data tidak ditemukan");
+      return notFoundMap;
+    }
+  }
+
+  @Route(url = "call/mahasiswa/angkatan")
+  public List<HashMap<String, Object>> getAllAngkatan(VMJExchange vmjExchange) {
+    return mahasiswaService.getAllAngkatan();
+  }
 
   @Restricted(permissionName = "ReadMahasiswaPublic")
   @Route(url = "call/mahasiswa/listpublic")

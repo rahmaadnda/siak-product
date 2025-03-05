@@ -49,9 +49,9 @@ public class ObserverResourceImpl extends ObserverResourceDecorator {
 		
 		try {
 			idStr = vmjExchange.getGETParam("id");
-      if(idStr == null) {
-        throw new IllegalArgumentException("Invalid UUID");
-      }
+      // if(idStr == null) {
+      //   throw new IllegalArgumentException("Invalid UUID");
+      // }
       UUID id = UUID.fromString(idStr);
       Observer observer = observerService.getObserver(id);
       return observer.toHashMap();
@@ -135,5 +135,13 @@ public class ObserverResourceImpl extends ObserverResourceDecorator {
     String email = vmjExchange.getGETParam("email"); 
     return ((ObserverServiceImpl) observerService).getAkunAlumniCreated(email);
   }
+
+  @Route(url = "call/alumni/optionpublic")
+  public HashMap<String, Object> getOptionPublic(VMJExchange vmjExchange) {
+    HashMap<String, Object> optionPublic = new HashMap<>();
+    optionPublic.put("id", "true");
+    optionPublic.put("name", "isPublic");
+    return optionPublic;
+ }
 
 }

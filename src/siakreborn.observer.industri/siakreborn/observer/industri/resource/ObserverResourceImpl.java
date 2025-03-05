@@ -57,9 +57,9 @@ public class ObserverResourceImpl extends ObserverResourceDecorator {
 		
 		try {
 			idStr = vmjExchange.getGETParam("id");
-      if(idStr == null) {
-        throw new IllegalArgumentException("Invalid UUID");
-      }
+      // if(idStr == null) {
+      //   throw new IllegalArgumentException("Invalid UUID");
+      // }
       UUID id = UUID.fromString(idStr);
       Observer observer = observerService.getObserver(id);
       return observer.toHashMap();

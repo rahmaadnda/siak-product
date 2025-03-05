@@ -511,35 +511,26 @@ public class UniversitasBandung {
         CapaianResource subcpmkCapaianResource = CapaianResourceFactory
             .createCapaianResource("siakreborn.capaian.subcpmk.CapaianResourceImpl"
                 , capaianCapaianResource, capaianCapaianService);
-			
-        KelasMahasiswaService rencanastudiKelasMahasiswaService = KelasMahasiswaServiceFactory
-            .createKelasMahasiswaService("siakreborn.rencanastudi.core.KelasMahasiswaServiceImpl"
-            	);		
 
-        RencanaStudiResource rencanastudiRencanaStudiResource = RencanaStudiResourceFactory
-            .createRencanaStudiResource("siakreborn.rencanastudi.core.RencanaStudiResourceImpl"
-                );
-			
-        KelasMahasiswaService rencanastudiKelasMahasiswa2Service = KelasMahasiswaServiceFactory
-            .createKelasMahasiswaService("siakreborn.rencanastudi.core.KelasMahasiswaServiceImpl"
-            	);		
-
-        RencanaStudiResource rencanastudiRencanaStudi2Resource = RencanaStudiResourceFactory
-            .createRencanaStudiResource("siakreborn.rencanastudi.core.RencanaStudiResourceImpl"
-                );
-			
-
-		System.out.println("rencanastudiRencanaStudi2Resource endpoints binding");
-		Router.route(rencanastudiRencanaStudi2Resource);
-		
-		System.out.println("rencanastudiKelasMahasiswa2Service endpoints binding");
-		Router.route(rencanastudiKelasMahasiswa2Service);
+		RencanaStudiService rencanastudiRencanaStudiService = RencanaStudiServiceFactory
+			.createRencanaStudiService("siakreborn.rencanastudi.core.RencanaStudiServiceImpl");
+	
+		RencanaStudiResource rencanastudiRencanaStudiResource = RencanaStudiResourceFactory
+			.createRencanaStudiResource("siakreborn.rencanastudi.core.RencanaStudiResourceImpl");
+	
+		RencanaStudiService precheckpembayaranRencanaStudiService = RencanaStudiServiceFactory
+			.createRencanaStudiService("siakreborn.rencanastudi.precheckpembayaran.RencanaStudiServiceImpl",
+				rencanastudiRencanaStudiService);
+	
+		RencanaStudiResource precheckpembayaranRencanaStudiResource = RencanaStudiResourceFactory
+			.createRencanaStudiResource("siakreborn.rencanastudi.precheckpembayaran.RencanaStudiResourceImpl",
+				rencanastudiRencanaStudiResource, rencanastudiRencanaStudiService);
+				
+		System.out.println("precheckpembayaranRencanaStudiResource endpoints binding");
+		Router.route(precheckpembayaranRencanaStudiResource);
 		
 		System.out.println("rencanastudiRencanaStudiResource endpoints binding");
 		Router.route(rencanastudiRencanaStudiResource);
-		
-		System.out.println("rencanastudiKelasMahasiswaService endpoints binding");
-		Router.route(rencanastudiKelasMahasiswaService);
 		
 		System.out.println("subcpmkCapaianResource endpoints binding");
 		Router.route(subcpmkCapaianResource);
