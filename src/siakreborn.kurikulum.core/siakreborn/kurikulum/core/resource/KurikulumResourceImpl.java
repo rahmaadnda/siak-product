@@ -61,7 +61,7 @@ public class KurikulumResourceImpl extends KurikulumResourceComponent {
 
     if (by.equals("programStudi")) {
       String programStudiIdStr = (String) vmjExchange.getGETParam("programStudiId");
-      if(idStr == null) {
+      if(programStudiIdStr == null) {
         throw new IllegalArgumentException("Invalid UUID");
       }
 
